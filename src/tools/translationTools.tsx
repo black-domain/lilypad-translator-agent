@@ -3,8 +3,8 @@ import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 
 
-const URL = import.meta.env.VITE_LILYPAD_API_KEY;
-const API_KEY = import.meta.env.VITE_LILYPAD_API_URL
+const URL = import.meta.env.VITE_LILYPAD_API_URL;
+const API_KEY = import.meta.env.VITE_LILYPAD_API_KEY
 // Supported Lilypad translation models
 const LILYPAD_MODELS = {
   "deepseek-r1:7b": "Works best when translating Chinese,but also support en、zh、ja、ko",
@@ -13,7 +13,6 @@ const LILYPAD_MODELS = {
   "openthinker:7b": "Better support for Korean,but also support es、en、fr、de、it、pt,but the translation speed is slow",
   "phi4-mini:3.8b": "It supports 15 mainstream languages ​​including en, zh, Spanish, and fr, but the BLEU scores of Swahili and Icelandic translations are 40% lower than those of Llama3.",
   "qwen2.5-coder:7b": "But the translation speed is slow",
-  "qwen2.5:7b": 'qwen2.5:7b',
 };
 
 export const translationTool = new DynamicStructuredTool({
@@ -42,8 +41,7 @@ export const translationTool = new DynamicStructuredTool({
     try {
       const model = new ChatOpenAI({
         model: modelPreference,
-        apiKey:
-          API_KEY,
+        apiKey: API_KEY,
         configuration: {
           baseURL: URL,
           fetch: (url, requestInit) => {
@@ -105,6 +103,9 @@ async function callOpenAITranslation(
     temperature: 0.3,
     model: "gpt-3.5-turbo",
     apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+    configuration: {
+      baseURL: import.meta.env.VITE_OPENAI_API_URL
+    }
   });
 
   const prompt = [

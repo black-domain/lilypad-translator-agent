@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatDialog.css';
-import { run } from '../tools/storacha';
+import { run } from '../tools/run';
 
 interface Message {
   id: string;
@@ -55,7 +55,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
     setIsLoading(true);
 
     try {
-      const result = await run({ message: inputValue, onSendMessage: (v) => { addBotMessage(v); } });
+      const result = await run({ message: inputValue });
       if (result) {
         addBotMessage(result)
       } else {

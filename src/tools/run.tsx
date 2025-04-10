@@ -30,7 +30,8 @@ export async function run(props: Props) {
       input: message,
       callbacks: [
         {
-          handleLLMStart(llm, prompts: string[]) {
+          handleLLMStart(llm: unknown, prompts: string[]) {
+            console.log(llm)
             const regex = /"model_name":"([^"]+)"/;
             const match = prompts[0].match(regex);
             if (match && match[1]) {
